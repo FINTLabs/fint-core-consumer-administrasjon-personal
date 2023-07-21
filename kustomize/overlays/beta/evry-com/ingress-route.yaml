@@ -1,4 +1,4 @@
-apiVersion: traefik.containo.us/v1beta1
+apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: fint-core-consumer-administrasjon-personal
