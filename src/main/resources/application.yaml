@@ -8,7 +8,7 @@ spring:
         jwt:
           issuer-uri: https://idp.felleskomponent.no/nidp/oauth/nam
   webflux:
-    base-path: /DOMAIN/PACKAGE
+    base-path: /administrasjon/personal
   kafka:
     consumer:
       group-id: # consumer-DOMAIN-PACKAGE-<your-instance-id>
@@ -17,7 +17,7 @@ fint:
   consumer:
     org-id:
   kafka:
-    application-id: consumer-DOMAIN-PACKAGE
+    application-id: consumer-administrasjon-personal
     enable-ssl: true
     topic:
       org-id: fintlabs.no
