@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: fint-core-consumer-administrasjon-personal
-data:
-  fint.consumer.org-id: 'fintlabs.no'
-  fint.kafka.topic.org-id: 'fintlabs.no'
-  spring.kafka.consumer.group-id: 'consumer-administrasjon-personal-alpha'
-  fint.relations.default-base-url: 'https://alpha.felleskomponent.no'

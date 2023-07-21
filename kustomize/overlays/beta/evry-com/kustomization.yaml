@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: fintlabs-no
+namespace: evry-com
 resources:
   - ../../../base
 patchesStrategicMerge:
@@ -9,9 +9,9 @@ patchesStrategicMerge:
   - ingress-route.yaml
 commonLabels:
   app.kubernetes.io/name: fint-core-consumer-administrasjon-personal
-  app.kubernetes.io/instance: fint-core-consumer-administrasjon-personal_fintlabs-no
+  app.kubernetes.io/instance: fint-core-consumer-administrasjon-personal_evry_com
   app.kubernetes.io/version: latest
   app.kubernetes.io/component: backend
   app.kubernetes.io/part-of: fint-core
   fintlabs.no/team: core
-  fintlabs.no/org-id: fintlabs.no
+  fintlabs.no/org-id: evry.com
