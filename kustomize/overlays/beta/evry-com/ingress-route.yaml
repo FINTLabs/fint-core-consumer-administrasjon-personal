@@ -6,7 +6,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: "Host(`beta.felleskomponent.no`) && (PathPrefix( `/administrasjon/personal`) && Headers(`x-org-id`, `evry.com`)"
+    - match: "Host(`beta.felleskomponent.no`) && (PathPrefix( `/administrasjon/personal`) && Headers(`x-org-id`, `evry.com`))"
       kind: Rule
       services:
         - name: fint-core-consumer-administrasjon-personal
