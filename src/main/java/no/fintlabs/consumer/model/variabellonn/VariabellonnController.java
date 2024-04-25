@@ -1,7 +1,9 @@
 package no.fintlabs.consumer.model.variabellonn;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
+import no.fint.model.resource.administrasjon.personal.PersonalressursResource;
 import no.fint.model.resource.administrasjon.personal.VariabellonnResource;
 import no.fint.relations.FintRelationsMediaType;
 import no.fintlabs.consumer.config.RestEndpoints;
@@ -27,5 +29,11 @@ public class VariabellonnController extends WriteableConsumerRestController<Vari
             FintFilterService odataFilterService,
             VariabellonnRequestKafkaConsumer variabellonnRequestKafkaConsumer) {
         super(cacheService, fintLinker, variabellonnConfig, variabellonnEventKafkaProducer, variabellonnResponseKafkaConsumer, odataFilterService, variabellonnRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("kildeSystemid", VariabellonnResource::getKildesystemId);
+        super.registerIdenficatorHandler("systemId", VariabellonnResource::getSystemId);
     }
 }

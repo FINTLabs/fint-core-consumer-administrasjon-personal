@@ -1,5 +1,6 @@
 package no.fintlabs.consumer.model.fravar;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.administrasjon.personal.FravarResource;
@@ -27,5 +28,11 @@ public class FravarController extends WriteableConsumerRestController<FravarReso
             FintFilterService odataFilterService,
             FravarRequestKafkaConsumer fravarRequestKafkaConsumer) {
         super(cacheService, fintLinker, fravarConfig, fravarEventKafkaProducer, fravarResponseKafkaConsumer, odataFilterService, fravarRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators(){
+        super.registerIdenficatorHandler("kildesystemId", FravarResource::getKildesystemId);
+        super.registerIdenficatorHandler("systemId", FravarResource::getSystemId);
     }
 }

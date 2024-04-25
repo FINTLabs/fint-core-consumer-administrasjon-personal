@@ -1,5 +1,6 @@
 package no.fintlabs.consumer.model.personalressurs;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.administrasjon.personal.PersonalressursResource;
@@ -27,5 +28,12 @@ public class PersonalressursController extends WriteableConsumerRestController<P
             FintFilterService odataFilterService,
             PersonalressursRequestKafkaConsumer personalressursRequestKafkaConsumer) {
         super(cacheService, fintLinker, personalressursConfig, personalressursEventKafkaProducer, personalressursResponseKafkaConsumer, odataFilterService, personalressursRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("ansattnummer", PersonalressursResource::getAnsattnummer);
+        super.registerIdenficatorHandler("brukernavn", PersonalressursResource::getBrukernavn);
+        super.registerIdenficatorHandler("systemId", PersonalressursResource::getSystemId);
     }
 }

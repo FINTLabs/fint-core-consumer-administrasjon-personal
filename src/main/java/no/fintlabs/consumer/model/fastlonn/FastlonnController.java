@@ -1,5 +1,6 @@
 package no.fintlabs.consumer.model.fastlonn;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.administrasjon.personal.FastlonnResource;
@@ -27,5 +28,11 @@ public class FastlonnController extends WriteableConsumerRestController<Fastlonn
             FintFilterService odataFilterService,
             FastlonnRequestKafkaConsumer fastlonnRequestKafkaConsumer) {
         super(cacheService, fintLinker, fastlonnConfig, fastlonnEventKafkaProducer, fastlonnResponseKafkaConsumer, odataFilterService, fastlonnRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators(){
+        super.registerIdenficatorHandler("kildeSystemId", FastlonnResource::getSystemId);
+        super.registerIdenficatorHandler("systemId", FastlonnResource::getSystemId);
     }
 }

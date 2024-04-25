@@ -1,5 +1,6 @@
 package no.fintlabs.consumer.model.arbeidsforhold;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.administrasjon.personal.ArbeidsforholdResource;
@@ -27,5 +28,10 @@ public class ArbeidsforholdController extends WriteableConsumerRestController<Ar
             FintFilterService odataFilterService,
             ArbeidsforholdRequestKafkaConsumer arbeidsforholdRequestKafkaConsumer) {
         super(cacheService, fintLinker, arbeidsforholdConfig, arbeidsforholdEventKafkaProducer, arbeidsforholdResponseKafkaConsumer, odataFilterService, arbeidsforholdRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators(){
+        super.registerIdenficatorHandler("systemId",ArbeidsforholdResource::getSystemId);
     }
 }

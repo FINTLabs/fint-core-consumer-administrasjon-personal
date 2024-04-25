@@ -1,5 +1,6 @@
 package no.fintlabs.consumer.model.fasttillegg;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.administrasjon.personal.FasttilleggResource;
@@ -27,5 +28,11 @@ public class FasttilleggController extends WriteableConsumerRestController<Fastt
             FintFilterService odataFilterService,
             FasttilleggRequestKafkaConsumer fasttilleggRequestKafkaConsumer) {
         super(cacheService, fintLinker, fasttilleggConfig, fasttilleggEventKafkaProducer, fasttilleggResponseKafkaConsumer, odataFilterService, fasttilleggRequestKafkaConsumer);
+    }
+
+    @PostConstruct
+    private void registerIdentificators(){
+        super.registerIdenficatorHandler("kildeSystemId", FasttilleggResource::getKildesystemId);
+        super.registerIdenficatorHandler("systemId", FasttilleggResource::getSystemId);
     }
 }
