@@ -48,6 +48,10 @@ public class VariabellonnLinker extends FintLinker<VariabellonnResource> {
             builder.add(createHrefWithId(resource.getSystemId().getIdentifikatorverdi(), "systemid"));
         }
 
+        if (!isNull(resource.getKildesystemId()) && !StringUtils.isEmpty(resource.getKildesystemId().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(resource.getKildesystemId().getIdentifikatorverdi(), "kildesystemid"));
+        }
+
         return builder.build();
     }
 
