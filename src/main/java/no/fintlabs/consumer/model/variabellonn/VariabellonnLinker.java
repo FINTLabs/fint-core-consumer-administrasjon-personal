@@ -61,6 +61,10 @@ public class VariabellonnLinker extends FintLinker<VariabellonnResource> {
             builder.add(resource.getSystemId().getIdentifikatorverdi().hashCode());
         }
 
+        if (!isNull(resource.getKildesystemId()) && !StringUtils.isEmpty(resource.getKildesystemId().getIdentifikatorverdi())) {
+            builder.add(resource.getKildesystemId().getIdentifikatorverdi().hashCode());
+        }
+
         return builder.build().toArray();
     }
 }
