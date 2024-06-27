@@ -34,6 +34,6 @@ public class VariabellonnController extends WriteableConsumerRestController<Vari
     @PostConstruct
     private void registerIdentificators() {
         super.registerIdenficatorHandler("kildeSystemid", VariabellonnResource::getKildesystemId);
-        super.registerIdenficatorHandler("systemId", VariabellonnResource::getSystemId);
+        super.registerIdenficatorHandler("systemid", VariabellonnResource::getSystemId);
     }
 }

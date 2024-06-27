@@ -33,6 +33,6 @@ public class FravarController extends WriteableConsumerRestController<FravarReso
     @PostConstruct
     private void registerIdentificators(){
         super.registerIdenficatorHandler("kildesystemId", FravarResource::getKildesystemId);
-        super.registerIdenficatorHandler("systemId", FravarResource::getSystemId);
+        super.registerIdenficatorHandler("systemid", FravarResource::getSystemId);
     }
 }

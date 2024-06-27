@@ -34,6 +34,6 @@ public class PersonalressursController extends WriteableConsumerRestController<P
     private void registerIdentificators() {
         super.registerIdenficatorHandler("ansattnummer", PersonalressursResource::getAnsattnummer);
         super.registerIdenficatorHandler("brukernavn", PersonalressursResource::getBrukernavn);
-        super.registerIdenficatorHandler("systemId", PersonalressursResource::getSystemId);
+        super.registerIdenficatorHandler("systemid", PersonalressursResource::getSystemId);
     }
 }

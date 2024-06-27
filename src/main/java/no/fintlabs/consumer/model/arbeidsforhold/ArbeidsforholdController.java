@@ -32,6 +32,6 @@ public class ArbeidsforholdController extends WriteableConsumerRestController<Ar
 
     @PostConstruct
     private void registerIdentificators(){
-        super.registerIdenficatorHandler("systemId",ArbeidsforholdResource::getSystemId);
+        super.registerIdenficatorHandler("systemid",ArbeidsforholdResource::getSystemId);
     }
 }

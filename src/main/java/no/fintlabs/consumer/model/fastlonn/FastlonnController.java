@@ -33,6 +33,6 @@ public class FastlonnController extends WriteableConsumerRestController<Fastlonn
     @PostConstruct
     private void registerIdentificators(){
         super.registerIdenficatorHandler("kildeSystemId", FastlonnResource::getSystemId);
-        super.registerIdenficatorHandler("systemId", FastlonnResource::getSystemId);
+        super.registerIdenficatorHandler("systemid", FastlonnResource::getSystemId);
     }
 }

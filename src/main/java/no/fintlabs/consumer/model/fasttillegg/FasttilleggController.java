@@ -33,6 +33,6 @@ public class FasttilleggController extends WriteableConsumerRestController<Fastt
     @PostConstruct
     private void registerIdentificators(){
         super.registerIdenficatorHandler("kildeSystemId", FasttilleggResource::getKildesystemId);
-        super.registerIdenficatorHandler("systemId", FasttilleggResource::getSystemId);
+        super.registerIdenficatorHandler("systemid", FasttilleggResource::getSystemId);
     }
 }
