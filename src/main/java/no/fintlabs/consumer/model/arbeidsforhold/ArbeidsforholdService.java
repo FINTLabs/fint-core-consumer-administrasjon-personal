@@ -54,7 +54,7 @@ public class ArbeidsforholdService extends CacheService<ArbeidsforholdResource> 
         if (resource == null) {
             getCache().remove(consumerRecord.key());
         } else {
-            linker.mapLinks(resource);
+            linker.toResource(resource);
             this.getCache().put(consumerRecord.key(), resource, linker.hashCodes(resource));
             if (consumerRecord.headers().lastHeader("event-corr-id") != null){
                 String corrId = new String(consumerRecord.headers().lastHeader("event-corr-id").value(), StandardCharsets.UTF_8);
