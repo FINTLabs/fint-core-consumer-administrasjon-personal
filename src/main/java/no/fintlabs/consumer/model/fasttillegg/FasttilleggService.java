@@ -44,11 +44,11 @@ public class FasttilleggService extends CacheService<FasttilleggResource> {
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(FasttilleggResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retention);
+        entityKafkaConsumer.registerListener(FasttilleggResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, FasttilleggResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         FasttilleggResource resource = consumerRecord.value();
         if (resource == null) {

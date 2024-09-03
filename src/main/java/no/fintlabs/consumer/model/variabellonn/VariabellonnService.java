@@ -44,11 +44,11 @@ public class VariabellonnService extends CacheService<VariabellonnResource> {
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(VariabellonnResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retention);
+        entityKafkaConsumer.registerListener(VariabellonnResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, VariabellonnResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         VariabellonnResource resource = consumerRecord.value();
         if (resource == null) {

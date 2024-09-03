@@ -44,11 +44,11 @@ public class ArbeidsforholdService extends CacheService<ArbeidsforholdResource> 
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(ArbeidsforholdResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retention);
+        entityKafkaConsumer.registerListener(ArbeidsforholdResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, ArbeidsforholdResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         ArbeidsforholdResource resource = consumerRecord.value();
         if (resource == null) {

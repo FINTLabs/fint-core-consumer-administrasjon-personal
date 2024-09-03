@@ -44,11 +44,11 @@ public class PersonalressursService extends CacheService<PersonalressursResource
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(PersonalressursResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retention);
+        entityKafkaConsumer.registerListener(PersonalressursResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, PersonalressursResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         PersonalressursResource resource = consumerRecord.value();
         if (resource == null) {
@@ -56,7 +56,7 @@ public class PersonalressursService extends CacheService<PersonalressursResource
         } else {
             linker.toResource(resource);
             this.getCache().put(consumerRecord.key(), resource, linker.hashCodes(resource));
-            if (consumerRecord.headers().lastHeader("event-corr-id") != null){
+            if (consumerRecord.headers().lastHeader("event-corr-id") != null) {
                 String corrId = new String(consumerRecord.headers().lastHeader("event-corr-id").value(), StandardCharsets.UTF_8);
                 log.debug("Adding corrId to EntityResponseCache: {}", corrId);
                 personalressursResponseKafkaConsumer.getEntityCache().add(corrId, resource);

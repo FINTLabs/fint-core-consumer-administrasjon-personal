@@ -44,11 +44,11 @@ public class FastlonnService extends CacheService<FastlonnResource> {
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(FastlonnResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retention);
+        entityKafkaConsumer.registerListener(FastlonnResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, FastlonnResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         FastlonnResource resource = consumerRecord.value();
         if (resource == null) {
@@ -56,7 +56,7 @@ public class FastlonnService extends CacheService<FastlonnResource> {
         } else {
             linker.toResource(resource);
             this.getCache().put(consumerRecord.key(), resource, linker.hashCodes(resource));
-            if (consumerRecord.headers().lastHeader("event-corr-id") != null){
+            if (consumerRecord.headers().lastHeader("event-corr-id") != null) {
                 String corrId = new String(consumerRecord.headers().lastHeader("event-corr-id").value(), StandardCharsets.UTF_8);
                 log.debug("Adding corrId to EntityResponseCache: {}", corrId);
                 fastlonnResponseKafkaConsumer.getEntityCache().add(corrId, resource);
